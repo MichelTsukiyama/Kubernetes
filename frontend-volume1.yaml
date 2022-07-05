@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-volume
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: web
+  template:
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+      - name: container-volume
+        image: mtsukidocker/pizzafrontend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - mountPath: "/app/meuvolume"
+            name: meuvolume
+      volumes:
+        - name: meuvolume
+          empytyDir: {}
